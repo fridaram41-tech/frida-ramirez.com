@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Frida Ramírez Salas</title>
+
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ===================== HOME SCREEN ===================== -->
+  <!--
+    Layers in z-order (back → front). DOM order = paint order.
+    Each .hl gets data-depth for JS parallax (higher = more movement).
+    Canvas reference: 1440 × 1024 px (Figma frame 1:3)
+  -->
+  <div id="home-screen">
+    <div class="home-scene-frame">
+
+      <!-- 1 · Dots background (swaps in dark mode) -->
+      <div class="hl hl-dots" data-depth="0.3" aria-hidden="true">
+        <img src="assets/images/hl-dots.png"      class="dots-light" alt="" />
+        <img src="assets/images/hl-dots-dark.svg" class="dots-dark"  alt="" />
+      </div>
+
+      <!-- 1.5 · Greeting text -->
+      <div class="hl hl-greeting" data-depth="0.5" aria-hidden="false">
+        <p class="greeting-intro">Hi! I'm Frida Ramírez</p>
+        <h1 class="greeting-h1">Welcome to<br>my website!</h1>
+      </div>
+
+      <!-- 2 · Window (swaps in dark mode) -->
+      <div class="hl hl-window" data-depth="0.6" aria-hidden="true">
+        <img src="assets/images/hl-window.png"      class="window-light" alt="" />
+        <img src="assets/images/hl-window-dark.png" class="window-dark"  alt="" />
+      </div>
+
+      <!-- 3 · Desk surface -->
+       <img src="assets/images/hl-desk.png"
+         class="hl hl-desk" data-depth="0.8" alt="Wooden desk surface with a visible beveled front edge and two tapered legs; a simple, tidy studio table viewed slightly from below that suggests a calm, minimal workspace. No visible text." aria-hidden="true" />
+
+      <!-- 4 · Laptop + message icon on screen (click opens Contact) -->
+      <div class="hl hl-laptop" data-depth="1.0" role="button" aria-label="Contact Frida" data-opens="contact-window">
+        <img src="assets/images/hl-laptop.png" class="laptop-bg" alt="" />
+        <img src="assets/images/hl-message-badge.svg" class="laptop-screen-msg" alt="" />
+      </div>
+
+      <!-- 5 · Lamp (click gray base = dark mode toggle) -->
+      <div class="hl hl-lamp" data-depth="1.0" aria-hidden="true">
+        <img src="assets/images/hl-lamp-light.svg" class="lamp-light" alt="" />
+        <img src="assets/images/hl-lamp-base.svg"  class="lamp-base"  alt="" />
+        <img src="assets/images/icon-brightness.svg" class="lamp-icon" alt="" />
+        <div class="lamp-btn" id="lamp-toggle" role="button" aria-label="Toggle dark mode"></div>
+      </div>
+
+      <!-- 6 · Books & flowers -->
+      <div class="hl hl-books" data-depth="1.0" aria-hidden="true">
+        <img src="assets/images/hl-books.png" class="books-bg" alt="">
+        <img src="assets/animations/Flowers.gif" class="books-plant" alt="">
+      </div>
+
+      <!-- 7 · Pen holder: pencil + pen behind cup, each an independent img -->
+      <div class="hl hl-penholder" data-depth="1.0" aria-hidden="true">
+        <img src="assets/images/ph-pencil.svg" class="ph-pencil" alt="">
+        <img src="assets/images/ph-pen.svg"    class="ph-pen"    alt="">
+        <img src="assets/images/ph-cup.svg"    class="ph-cup"    alt="">
+      </div>
+
+      <!-- 8 · Polaroid photo (hover reveals person, click opens About) -->
+      <div class="hl hl-foto" data-depth="0.9" data-opens="about-window" role="button" aria-label="About Frida">
+        <img src="assets/images/hl-foto-default.svg" class="foto-default" alt="" />
+        <img src="assets/images/hl-foto-hover.svg"   class="foto-reveal"  alt="" />
+      </div>
+
+      <!-- 9 · Music player (click to play / stop) -->
+      <div class="hl hl-music" data-depth="1.1" id="music-toggle" role="button" aria-label="Toggle music">
+
+        <!-- Notes — only visible when playing -->
+        <svg class="music-note note-1" viewBox="0 27 37 40" xmlns="http://www.w3.org/2000/svg">
+          <path d="M5.69242 45.3418C10.5467 42.1065 14.488 40.5386 19.2925 38.9043C21.3504 38.1992 23.1344 37.0129 25.0927 39.1781L23.6572 42.289L14.8865 45.74C11.8827 46.918 9.26058 47.7891 6.40612 49.7635C6.56378 51.9453 6.90382 53.8865 7.47637 56.0683C11.0362 52.6255 10.6545 53.1813 15.6083 54.0856C18.637 57.1135 19.0934 61.8256 15.9983 65.036L14.4882 66.6039C14.0733 67.027 12.7457 66.6039 12.0072 66.3385C10.8455 65.9071 9.5758 63.7502 10.6628 62.8294C11.8411 62.3897 13.4758 61.1536 13.3181 59.7765C13.2766 59.4115 12.8203 58.7312 12.5631 58.6649C10.9367 58.2169 11.1026 60.9628 8.83733 61.5767C8.08223 61.7841 7.06158 61.2034 5.91647 60.8218L4.43113 60.9047C4.07432 60.9213 4.37296 59.2621 4.14062 58.9967C3.39381 58.1422 2.6139 56.1679 2.35666 54.741L0 41.7083L1.72602 38.3319C4.1075 37.1207 6.3563 35.9925 8.65481 35.0883L14.4467 32.7986C16.1975 32.1101 17.965 31.5708 19.6827 30.7661C22.2467 29.5549 24.6198 28.6922 27.3001 27.9788C27.9971 28.5097 28.8435 29.0987 28.7688 29.3475C29.2501 31.2141 29.5902 33.0558 29.7562 35.08L30.3785 42.4798L30.4616 45.0598L30.9344 49.1496L35.0005 47.3743C35.7639 47.5983 37.3071 47.9799 37.9461 48.2121C41.6718 49.5561 42.3856 55.4212 39.9875 58.0095C38.3694 59.7599 35.8717 60.5314 34.1292 59.0714C33.7392 58.1837 33.5068 56.6822 33.2246 55.164C32.0795 55.5456 30.7686 56.7569 30.0135 57.8519C27.4162 57.7606 26.4038 54.799 26.7606 52.3435C26.9348 51.1406 26.072 49.0832 26.1052 47.8471C26.321 40.7874 25.292 40.3312 25.4746 33.454C24.8688 33.7775 24.0638 34.1923 23.458 34.3914L17.575 36.3243L15.8573 36.4073C14.3554 38.1826 12.2394 38.5974 10.2064 39.4269L5.26091 41.4428L5.69242 45.3418Z" fill="#373737"/>
+        </svg>
+        <svg class="music-note note-2" viewBox="87 0 27 32" xmlns="http://www.w3.org/2000/svg">
+          <path d="M97.4501 26.9832C96.1888 26.3361 95.1847 25.8135 94.2803 25.5232C93.5169 25.2826 92.1229 26.5269 91.6167 27.3814C95.3175 32.3755 102.238 26.4108 102.379 27.7381L102.52 29.082L103.839 30.8988C100.338 34.3416 94.994 34.9223 90.8284 32.3423C89.1108 31.2805 87.6835 29.8702 87.2852 27.929C86.9118 26.1537 87.8078 23.9221 89.1936 22.686C91.8323 20.3217 95.0354 20.3881 98.2799 22.0389C98.0973 17.7666 98.2797 14.3155 99.1676 10.5741C99.6323 8.63292 98.9353 1.15845 102.744 0.138065C105.2 -0.517302 106.652 1.27455 111 3.10792C111.54 3.33191 112.569 3.46467 112.735 3.86287C112.975 4.45187 113.506 7.55448 112.37 8.05223C110.577 8.84033 106.229 7.59597 104.719 6.40137L102.976 16.8126L102.105 23.64C100.777 23.6732 99.151 23.9801 98.9768 24.9093C98.7776 25.9628 98.0475 27.2985 97.4418 26.9832H97.4501Z" fill="#373737"/>
+        </svg>
+
+        <!-- Device (always visible) -->
+        <img src="assets/images/hl-music-alexa.svg" class="music-alexa" alt="" />
+
+        <audio id="bg-music" src="assets/music.mp3" loop></audio>
+      </div>
+
+      <!-- 10 · Chair (foreground — most parallax) -->
+      <img src="assets/images/hl-chair.png"
+           class="hl hl-chair" data-depth="1.5" alt="" aria-hidden="true" />
+
+    </div>
+  </div>
+
+  <!-- ===================== WORK POPUP ===================== -->
+  <div id="work-window" class="hidden" role="dialog" aria-modal="true" aria-label="Frida's Work">
+    <div class="about-titlebar">
+      <button class="about-close" id="work-close" aria-label="Close">X</button>
+      <span class="about-title-text">Work</span>
+    </div>
+    <div class="about-body">
+
+      <div class="about-section">
+        <p class="about-h2">Tools:</p>
+        <div class="work-tags">
+          <span class="work-tag">Adobe Photoshop</span>
+          <span class="work-tag">Claude code</span>
+          <span class="work-tag">Adobe Illustrator</span>
+          <span class="work-tag">HTML / CSS</span>
+          <span class="work-tag">Rive</span>
+          <span class="work-tag">Javascript</span>
+          <span class="work-tag">Figma</span>
+        </div>
+      </div>
+
+      <hr class="about-rule" />
+
+      <div class="about-section">
+        <p class="about-h2">Web Design:</p>
+        <div class="work-gallery">
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/251741495/Calendo-Calendar-App-Design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ef8d29251741495.Y3JvcCw5NTEsNzQ0LDMzMiw2MQ.png" alt="Calendo, Calendar App Design" />
+            <span class="work-caption">Calendo, Calendar App</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/248605929/AntDevs-Design-System" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b02141248605929.Y3JvcCwxMDA3LDc4OCwxOTcsMA.png" alt="AntDevs Design System" />
+            <span class="work-caption">AntDevs Design System</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/226860711/AntDev-Home-page" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/5891be226860711.Y3JvcCw3MjIsNTY1LDE1NSwxNDg.png" alt="AntDev Home page" />
+            <span class="work-caption">AntDev Home page</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/250839857/Recipe-Platform-UXUI-Design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/c82dbf250839857.Y3JvcCwxMzQyLDEwNTAsMjksMA.png" alt="Recipe Platform UX/UI Design" />
+            <span class="work-caption">Recipe Platform UX/UI</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245151913/Perennial-Redesign" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/8d86ad245151913.Y3JvcCwxNDQwLDExMjYsMCww.png" alt="Perennial Redesign" />
+            <span class="work-caption">Perennial Redesign</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245933199/Peter-Pantazis-Website" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/206489245933199.Y3JvcCwxNDAwLDEwOTUsMCww.png" alt="Peter Pantazis Website" />
+            <span class="work-caption">Peter Pantazis Website</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245015547/Pine-Tiny-living" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/6464c8245015547.Y3JvcCwxMTQ1LDg5NiwxMTksMA.png" alt="Pine Tiny living" />
+            <span class="work-caption">Pine Tiny Living</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/131019843/Ratespot-web-page-design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/2fd439131019843.Y3JvcCwxOTIwLDE1MDEsMCwxOTAw.png" alt="Ratespot web page design" />
+            <span class="work-caption">Ratespot Web Page</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/130492245/Rivka-Web-designs" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/d06353130492245.Y3JvcCwxOTIwLDE1MDEsMCwxNzY3.png" alt="Rivka Web designs" />
+            <span class="work-caption">Rivka Web Designs</span>
+          </a>
+
+        </div>
+        <p class="about-h3">See more on <a class="work-behance-link" href="https://www.behance.net/fridaramirez3" target="_blank" rel="noopener noreferrer">Behance</a></p>
+      </div>
+
+      <hr class="about-rule" />
+
+      <div class="about-section">
+        <p class="about-h2">Dev projects:</p>
+        <p class="about-h3">This website!</p>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ===================== CONTACT POPUP ===================== -->
+  <div id="contact-window" class="hidden" role="dialog" aria-modal="true" aria-label="Contact Frida">
+    <div class="about-titlebar">
+      <button class="about-close" id="contact-close" aria-label="Close">X</button>
+      <span class="about-title-text">Contact</span>
+    </div>
+    <div class="about-body">
+
+      <div class="about-section">
+        <p class="about-h2">Send me an Email!</p>
+        <p class="about-h3">Email me at: &nbsp;<a class="contact-email" href="mailto:fridaram41@gmail.com" target="_blank" rel="noopener noreferrer">fridaram41@gmail.com</a></p>
+      </div>
+
+      <hr class="about-rule" />
+
+    </div>
+  </div>
+
+  <!-- ===================== IMAGE LIGHTBOX ===================== -->
+  <div id="work-lightbox" class="hidden" role="dialog" aria-modal="true" aria-label="Image viewer">
+    <button class="lightbox-close" id="lightbox-close" aria-label="Close image">X</button>
+    <div class="lightbox-img-wrap">
+      <img id="lightbox-img" src="" alt="" />
+    </div>
+  </div>
+
+  <!-- ===================== ABOUT POPUP ===================== -->
+  <div id="about-window" class="hidden" role="dialog" aria-modal="true" aria-label="About Frida">
+    <div class="about-titlebar">
+      <button class="about-close" id="about-close" data-closes="about-window" aria-label="Close">X</button>
+      <span class="about-title-text">About</span>
+    </div>
+    <div class="about-body">
+
+      <div class="about-hero">
+        <div class="about-avatar"></div>
+        <div class="about-nameblock">
+          <p class="about-name">Frida Ramírez Salas</p>
+          <p class="about-role">UX/UI Designer &amp; Motion Specialist</p>
+        </div>
+      </div>
+
+      <hr class="about-rule" />
+      <div class="about-section">
+        <p class="about-h2">Hi I'm Frida, a UX|UI designer and illustrator, I create…</p>
+        <ul class="about-list">
+          <li>Website wireframes</li>
+          <li>User centered web design</li>
+          <li>Custom Iconography and vector illustrations</li>
+          <li>Digital ilustrations</li>
+        </ul>
+      </div>
+
+      <hr class="about-rule" />
+      <div class="about-section">
+        <p class="about-h2">Education:</p>
+        <ul class="about-edu-list">
+          <li>
+            <span class="edu-school">Tecmilenio University</span>
+            <span class="edu-arrow"></span>
+            <span class="edu-degree">Graphic Design and Digital Animation Graduated CUM LAUDE</span>
+          </li>
+          <li>
+            <span class="edu-school">ACDA Academy</span>
+            <span class="edu-arrow edu-arrow--long"></span>
+            <span class="edu-degree">Plastic arts minor</span>
+          </li>
+        </ul>
+      </div>
+
+      <hr class="about-rule" />
+      <div class="about-section">
+        <p class="about-h2">Language proficiency:</p>
+        <p class="about-h3">I'm fluent in <strong>English</strong> and <strong>Spanish</strong> and have basic conversational level in <strong>Japanese</strong> and <strong>French</strong>.</p>
+      </div>
+
+      <hr class="about-rule" />
+      <div class="about-section">
+        <p class="about-h2">Other interests:</p>
+        <ul class="about-list">
+          <li>Digital ilustrations</li>
+          <li>Animation</li>
+          <li>DIY projects</li>
+        </ul>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
