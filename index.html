@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Frida Ramírez Salas</title>
 
+  <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -24,6 +25,12 @@
         <img src="assets/images/hl-dots-dark.svg" class="dots-dark"  alt="" />
       </div>
 
+      <!-- 1.5 · Greeting text -->
+      <div class="hl hl-greeting" data-depth="0.5" aria-hidden="false">
+        <p class="greeting-intro">Hi! I'm Frida Ramírez</p>
+        <h1 class="greeting-h1">Welcome to<br>my website!</h1>
+      </div>
+
       <!-- 2 · Window (swaps in dark mode) -->
       <div class="hl hl-window" data-depth="0.6" aria-hidden="true">
         <img src="assets/images/hl-window.png"      class="window-light" alt="" />
@@ -31,8 +38,8 @@
       </div>
 
       <!-- 3 · Desk surface -->
-      <img src="assets/images/hl-desk.png"
-           class="hl hl-desk" data-depth="0.8" alt="" aria-hidden="true" />
+       <img src="assets/images/hl-desk.png"
+         class="hl hl-desk" data-depth="0.8" alt="Wooden desk surface with a visible beveled front edge and two tapered legs; a simple, tidy studio table viewed slightly from below that suggests a calm, minimal workspace. No visible text." aria-hidden="true" />
 
       <!-- 4 · Laptop + message icon on screen (click opens Contact) -->
       <div class="hl hl-laptop" data-depth="1.0" role="button" aria-label="Contact Frida" data-opens="contact-window">
@@ -117,9 +124,52 @@
       <div class="about-section">
         <p class="about-h2">Web Design:</p>
         <div class="work-gallery">
-          <div class="work-img-frame"><img src="assets/images/work/work-1.png" alt="Perennial Pride web redesign" /></div>
-          <div class="work-img-frame"><img src="assets/images/work/work-2.png" alt="PLNF web design" /></div>
-          <div class="work-img-frame"><img src="assets/images/work/work-3.png" alt="Ant DEVS Design System" /></div>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/251741495/Calendo-Calendar-App-Design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/ef8d29251741495.Y3JvcCw5NTEsNzQ0LDMzMiw2MQ.png" alt="Calendo, Calendar App Design" />
+            <span class="work-caption">Calendo, Calendar App</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/248605929/AntDevs-Design-System" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/b02141248605929.Y3JvcCwxMDA3LDc4OCwxOTcsMA.png" alt="AntDevs Design System" />
+            <span class="work-caption">AntDevs Design System</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/226860711/AntDev-Home-page" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/5891be226860711.Y3JvcCw3MjIsNTY1LDE1NSwxNDg.png" alt="AntDev Home page" />
+            <span class="work-caption">AntDev Home page</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/250839857/Recipe-Platform-UXUI-Design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/c82dbf250839857.Y3JvcCwxMzQyLDEwNTAsMjksMA.png" alt="Recipe Platform UX/UI Design" />
+            <span class="work-caption">Recipe Platform UX/UI</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245151913/Perennial-Redesign" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/8d86ad245151913.Y3JvcCwxNDQwLDExMjYsMCww.png" alt="Perennial Redesign" />
+            <span class="work-caption">Perennial Redesign</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245933199/Peter-Pantazis-Website" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/206489245933199.Y3JvcCwxNDAwLDEwOTUsMCww.png" alt="Peter Pantazis Website" />
+            <span class="work-caption">Peter Pantazis Website</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/245015547/Pine-Tiny-living" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/6464c8245015547.Y3JvcCwxMTQ1LDg5NiwxMTksMA.png" alt="Pine Tiny living" />
+            <span class="work-caption">Pine Tiny Living</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/131019843/Ratespot-web-page-design" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/2fd439131019843.Y3JvcCwxOTIwLDE1MDEsMCwxOTAw.png" alt="Ratespot web page design" />
+            <span class="work-caption">Ratespot Web Page</span>
+          </a>
+
+          <a class="work-img-frame" href="https://www.behance.net/gallery/130492245/Rivka-Web-designs" target="_blank" rel="noopener noreferrer">
+            <img src="https://mir-s3-cdn-cf.behance.net/projects/404/d06353130492245.Y3JvcCwxOTIwLDE1MDEsMCwxNzY3.png" alt="Rivka Web designs" />
+            <span class="work-caption">Rivka Web Designs</span>
+          </a>
+
         </div>
         <p class="about-h3">See more on <a class="work-behance-link" href="https://www.behance.net/fridaramirez3" target="_blank" rel="noopener noreferrer">Behance</a></p>
       </div>

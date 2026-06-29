@@ -63,6 +63,36 @@ img { display: block; max-width: 100%; }
 body.dark-mode .dots-light { opacity: 0; }
 body.dark-mode .dots-dark  { opacity: 1; }
 
+/* ── Greeting text ────────────────────────────────────────── */
+.hl-greeting {
+  left:   11.81%;
+  right:  66.94%;
+  top:    25.78%;
+  bottom: 55.37%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  pointer-events: none;
+}
+
+.greeting-intro {
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 1.05em;
+  color: #000000;
+  margin-bottom: 0.3em;
+}
+
+.greeting-h1 {
+  font-family: 'Raleway', sans-serif;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 28px;
+  line-height: 33px;
+  color: #000000;
+}
+
 /* ── Window (cross-fades between light and dark) ─────────── */
 .hl-window {
   left:  33.96%;
@@ -334,22 +364,67 @@ body.dark-mode .music-note path { fill: #ffffff; }
 .hl-chair { left: 48.06%; top: 70.12%; width: 21.74%; }
 
 /* ============================================================
-   RESPONSIVE — touch devices: loop hint animations on interactive elements
-   (hover is unavailable so user needs a visual cue)
+   RESPONSIVE — mobile (≤ 768 px)
+   Portrait canvas from Figma node 43-18970 (440 × 956 px).
+   Every element is individually repositioned for portrait.
    ============================================================ */
-@media (hover: none) {
-  .hl-laptop    { animation: ph-pulse   1.8s ease-in-out 0s    infinite; }
-  .hl-penholder { animation: ph-pulse   1.8s ease-in-out 0.6s  infinite; }
-  .hl-foto      { animation: foto-pulse 1.8s ease-in-out 1.2s  infinite; }
-}
-
 @media (max-width: 768px) {
+
+  /* ── Scene frame: portrait aspect ratio, fits viewport ────── */
+  #home-screen { overflow: hidden; }
+
+  .home-scene-frame {
+    width: min(100vw, calc(100dvh * 440 / 956));
+    height: auto;
+    aspect-ratio: 440 / 956;
+  }
+
+  /* Dots background sits outside the Figma portrait frame — hide it */
+  .hl-dots { display: none; }
+
+  /* Greeting: top-left white space above the window (0–34% height) */
+  .hl-greeting {
+    display: flex;
+    left: 12%;
+    right: 10%;
+    top: 7%;
+    bottom: auto;
+  }
+
+  .greeting-intro { font-size: 17px; margin-bottom: 0.3em; }
+  .greeting-h1    { font-size: 31px; line-height: 37px; }
+
+  /* ── Portrait layer positions (% of 440 × 956) ─────────────
+     Source: Figma node 43-18970 pixel values → converted to %
+  ────────────────────────────────────────────────────────── */
+  .hl-window    { left: 24.5%;  top: 33.9%; width: 53.2%; }
+  .hl-desk      { left: -3.9%;  top: 67.9%; width: 109.5%; }
+  .hl-books     { left: 2.7%;   top: 52.3%; width: 19.5%; aspect-ratio: 86 / 172; }
+  .hl-lamp      { left: 52.5%;  top: 58.0%; width: 36.4%; }
+  .hl-penholder { left: 25.2%;  top: 64.9%; width: 5.7%; }
+  .hl-music     { left: 84.1%;  top: 64.4%; width: 13.4%; }
+  .hl-chair     { left: 48.6%;  top: 69.1%; width: 37.0%; }
+
+  /* Laptop + foto combine position AND loop animation */
+  .hl-laptop {
+    left: 34.1%; top: 61.6%; width: 30.7%;
+    animation: ph-pulse 1.8s ease-in-out 0s infinite;
+  }
+  .hl-foto {
+    left: 77.4%; top: 44.7%; width: 11.2%;
+    animation: foto-pulse 1.8s ease-in-out 1.2s infinite;
+  }
+
+  /* Pens jump on a staggered loop */
+  .ph-pen    { animation: ph-jump 1.4s ease-in-out 0.5s infinite; }
+  .ph-pencil { animation: ph-jump 1.4s ease-in-out 0.8s infinite; }
+
+  /* ── About popup education list ────────────────────────────── */
   .about-edu-list li {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
-
   .edu-school { min-width: unset; }
   .edu-arrow  { display: none; }
 }
@@ -669,30 +744,43 @@ body.dark-mode .music-note path { fill: #ffffff; }
 }
 
 .work-gallery {
-  display: flex;
-  gap: 28px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
   margin-left: 28px;
   margin-bottom: 28px;
 }
 
 .work-img-frame {
-  flex: 1;
-  height: 300px;
+  display: block;
+  text-decoration: none;
   overflow: hidden;
   border-radius: 6px;
-  cursor: zoom-in;
+  border: 2px solid transparent;
+  transition: border-color 0.2s ease;
 }
 
 .work-img-frame img {
   width: 100%;
-  height: 100%;
+  height: 160px;
   object-fit: cover;
   object-position: top;
   display: block;
   transition: transform 0.25s ease;
 }
 
+.work-caption {
+  display: block;
+  font-family: 'Raleway', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--color-text);
+  padding: 6px 8px;
+  background: var(--color-window);
+}
+
 .work-img-frame:hover img { transform: scale(1.04); }
+.work-img-frame:hover { border-color: var(--color-text); }
 
 /* ── Image lightbox ───────────────────────────────────────── */
 #work-lightbox {
